@@ -1,0 +1,166 @@
+{
+    "openapi": "3.0.2",
+    "info": {
+        "title": "PZ Cheeseria API",
+        "version": "1.0",
+        "description": "API for managing cheese selection and pricing"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080"
+        }
+    ],
+    "paths": {
+        "/cheeses": {
+            "get": {
+                "summary": "Get all cheeses",
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Cheese"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Add a new cheese",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CheeseInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Cheese created successfully"
+                    }
+                }
+            }
+        },
+        "/cheeses/{cheeseId}": {
+            "get": {
+                "summary": "Get a specific cheese by ID",
+                "parameters": [
+                    {
+                        "name": "cheeseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Cheese"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update a specific cheese by ID",
+                "parameters": [
+                    {
+                        "name": "cheeseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CheeseInput"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Cheese updated successfully"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete a specific cheese by ID",
+                "parameters": [
+                    {
+                        "name": "cheeseId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Cheese deleted successfully"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Cheese": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "pricePerKilo": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    }
+                }
+            },
+            "CheeseInput": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "pricePerKilo": {
+                        "type": "number"
+                    },
+                    "color": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "pricePerKilo",
+                    "color"
+                ]
+            }
+        }
+    }
+}
