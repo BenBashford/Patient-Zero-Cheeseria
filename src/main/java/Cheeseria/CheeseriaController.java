@@ -27,4 +27,30 @@ public class CheeseriaController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PostMapping("/cheeses")
+    public ResponseEntity<Cheese> createCheese(@RequestBody Cheese newCheese) {
+        Cheese createdCheese = cheeseService.createCheese(newCheese);
+        return ResponseEntity.ok(createdCheese);
+    }
+
+    @PutMapping("/cheeses/{cheeseId}")
+    public ResponseEntity<Cheese> updateCheese(@PathVariable String cheeseId, @RequestBody Cheese updatedCheese) {
+        Cheese cheese = cheeseService.updateCheese(cheeseId, updatedCheese);
+        if (cheese != null) {
+            return ResponseEntity.ok(cheese);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/cheeses/{cheeseId}")
+    public ResponseEntity<?> deleteCheese(@PathVariable String cheeseId) {
+        boolean deleted = cheeseService.deleteCheese(cheeseId);
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

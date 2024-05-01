@@ -9,12 +9,7 @@ public class CheeseService {
     private List<Cheese> cheeses = new ArrayList<>();
 
     public CheeseService() {
-        // Initialize cheeses
-        cheeses.add(new Cheese("1", "Cheddar", 8.99, "Yellow"));
-        cheeses.add(new Cheese("2", "Gouda", 10.99, "Yellow"));
-        cheeses.add(new Cheese("3", "Brie", 12.99, "White"));
-        cheeses.add(new Cheese("4", "Blue Cheese", 9.99, "Blue"));
-        cheeses.add(new Cheese("5", "Feta", 7.99, "White"));
+
     }
 
     public List<Cheese> getAllCheeses() {
@@ -28,5 +23,57 @@ public class CheeseService {
             }
         }
         return null;
+    }
+
+    public Cheese createCheese(Cheese newCheese) {
+        if (!isValidCheese(newCheese)) {
+            throw new IllegalArgumentException("Cheese must have a name, a price per kilo, and a color.");
+        }
+        if (cheeses.size() >= 5) {
+            throw new RuntimeException("Maximum number of cheeses reached");
+        }
+        // Set a default image URL if none is provided
+        if (newCheese.getImageUrl() == null || newCheese.getImageUrl().isEmpty()) {
+            newCheese.setImageUrl("https://jackscheese.com/wp-content/uploads/Placeholder-Cheese.jpg.webp"); // Provide
+            // the
+            // default
+            // image
+            // URL here
+        }
+        cheeses.add(newCheese);
+        return newCheese;
+    }
+
+    public Cheese updateCheese(String id, Cheese updatedCheese) {
+        if (!isValidCheese(updatedCheese)) {
+            throw new IllegalArgumentException("Cheese must have a name, a price per kilo, and a color.");
+        }
+        for (int i = 0; i < cheeses.size(); i++) {
+            Cheese cheese = cheeses.get(i);
+            if (cheese.getId().equals(id)) {
+                // Set a default image URL if none is provided
+                if (updatedCheese.getImageUrl() == null || updatedCheese.getImageUrl().isEmpty()) {
+                    updatedCheese.setImageUrl("https://jackscheese.com/wp-content/uploads/Placeholder-Cheese.jpg.webp"); // Provide
+                    // the
+                    // default
+                    // image
+                    // URL
+                    // here
+                }
+                cheeses.set(i, updatedCheese);
+                return updatedCheese;
+            }
+        }
+        return null; // Cheese not found
+    }
+
+    public boolean deleteCheese(String id) {
+        return cheeses.removeIf(cheese -> cheese.getId().equals(id));
+    }
+
+    private boolean isValidCheese(Cheese cheese) {
+        return cheese.getName() != null && !cheese.getName().isEmpty() &&
+                cheese.getPricePerKilo() > 0 &&
+                cheese.getColor() != null && !cheese.getColor().isEmpty();
     }
 }
