@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.UUID;
 
+// Class representing a Cheese entity
 public class Cheese {
     private String id;
     private String name;
@@ -9,14 +10,16 @@ public class Cheese {
     private String color;
     private String imageUrl;
 
+    // Constructor
     public Cheese(String id, String name, double pricePerKilo, String color, String imageUrl) {
-        this.id = (id != null) ? id : UUID.randomUUID().toString();
+        this.id = (id != null) ? id : UUID.randomUUID().toString(); // Generate a UUID if ID is not provided
         this.name = name;
         this.pricePerKilo = pricePerKilo;
         this.color = color;
         this.imageUrl = imageUrl;
     }
 
+    // Getter and setter methods
     public String getImageUrl() {
         return imageUrl;
     }

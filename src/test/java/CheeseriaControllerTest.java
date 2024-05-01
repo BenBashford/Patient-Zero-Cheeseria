@@ -29,6 +29,7 @@ public class CheeseriaControllerTest {
     @MockBean
     private CheeseService cheeseService;
 
+    // Test for retrieving a cheese by ID
     @Test
     public void testGetCheeseById_ExistingCheese() throws Exception {
         String cheeseId = "1";
@@ -50,6 +51,7 @@ public class CheeseriaControllerTest {
         verify(cheeseService, times(1)).getCheeseById(cheeseId);
     }
 
+     // Test for retrieving all cheeses
     @Test
     public void testGetAllCheeses() throws Exception {
 
@@ -69,6 +71,7 @@ public class CheeseriaControllerTest {
         verify(cheeseService, times(1)).getAllCheeses();
     }
 
+    // Test for creating a new cheese
     @Test
     public void testCreateCheese() throws Exception {
         Cheese newCheese = new Cheese("1", "Mozzarella", 15.0, "White", "example.com/mozzarella.jpg");
@@ -88,6 +91,7 @@ public class CheeseriaControllerTest {
         verify(cheeseService, times(1)).createCheese(any(Cheese.class));
     }
 
+    // Test for updating an existing cheese
     @Test
     public void testUpdateCheese() throws Exception {
         String cheeseId = "1";
@@ -108,6 +112,7 @@ public class CheeseriaControllerTest {
         verify(cheeseService, times(1)).updateCheese(eq(cheeseId), any(Cheese.class));
     }
 
+    //Test for deleting an existing cheese
     @Test
     public void testDeleteCheese() throws Exception {
         String cheeseId = "1";

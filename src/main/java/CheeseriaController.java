@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
+// REST controller for managing cheese-related operations
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class CheeseriaController {
@@ -18,12 +19,14 @@ public class CheeseriaController {
     @Autowired
     private CheeseService cheeseService;
 
+    // Get all cheeses
     @GetMapping("/cheeses")
     @Operation(summary = "Get all cheeses", description = "Get a list of all cheeses")
     public List<Cheese> getAllCheeses() {
         return cheeseService.getAllCheeses();
     }
 
+    // Get cheese by ID
     @GetMapping("/cheeses/{cheeseId}")
     @Operation(summary = "Get cheese by ID", description = "Get cheese information by its ID")
     @ApiResponse(responseCode = "200", description = "Found the cheese", content = {
@@ -39,6 +42,7 @@ public class CheeseriaController {
         }
     }
 
+    // Create a new cheese
     @PostMapping("/cheeses")
     @Operation(summary = "Create a new cheese", description = "Create a new cheese with provided details")
     @ApiResponse(responseCode = "200", description = "The created cheese", content = {
@@ -49,6 +53,7 @@ public class CheeseriaController {
         return ResponseEntity.ok(createdCheese);
     }
 
+    // Update an existing cheese
     @PutMapping("/cheeses/{cheeseId}")
     @Operation(summary = "Update an existing cheese", description = "Update an existing cheese with provided details")
     @ApiResponse(responseCode = "200", description = "The updated cheese", content = {
@@ -65,6 +70,7 @@ public class CheeseriaController {
         }
     }
 
+    // Delete a cheese
     @DeleteMapping("/cheeses/{cheeseId}")
     @Operation(summary = "Delete a cheese", description = "Delete a cheese by its ID")
     @ApiResponse(responseCode = "200", description = "Cheese deleted successfully")

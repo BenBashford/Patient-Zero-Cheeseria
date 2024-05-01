@@ -4,12 +4,15 @@ import Calculator from './Calculator';
 import AddCheeseForm from './AddCheeseForm';
 
 function App() {
+  // State to store the list of cheeses
   const [cheeses, setCheeses] = useState([]);
 
+  // Fetch cheeses from the server when the component mounts
   useEffect(() => {
     fetchCheeses();
   }, []);
 
+  // Function to fetch cheeses from the server
   const fetchCheeses = async () => {
     try {
       const response = await fetch('http://localhost:8080/cheeses');
@@ -23,6 +26,7 @@ function App() {
     }
   };
 
+  // Function to handle the creation of a new cheese
   const handleCreateCheese = async (newCheese) => {
     try {
       if (cheeses.length >= 5) {
@@ -45,6 +49,7 @@ function App() {
     }
   };
 
+  // Function to handle the update of an existing cheese
   const handleUpdateCheese = async (id, updatedCheese) => {
     try {
       const response = await fetch(`http://localhost:8080/cheeses/${id}`, {
@@ -62,7 +67,7 @@ function App() {
       console.error('Error updating cheese:', error.message);
     }
   };
-
+  // Function to handle the deletion of a cheese
   const handleDeleteCheese = async (id) => {
     try {
       const response = await fetch(`http://localhost:8080/cheeses/${id}`, {

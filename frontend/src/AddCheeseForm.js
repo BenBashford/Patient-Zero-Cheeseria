@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 
+// Form component for adding a new cheese
 function AddCheeseForm({ onAddCheese, disabled }) {
+    // State variable for the new cheese
     const [newCheese, setNewCheese] = useState({ name: '', pricePerKilo: '', color: '', imageUrl: '' });
 
+    // Function to handle input change
     const handleChange = (e) => {
         const { name, value } = e.target;
         setNewCheese({ ...newCheese, [name]: value });
     };
 
+    // Function to handle form submission
     const handleSubmit = () => {
         onAddCheese(newCheese);
+        // Reset form fields
         setNewCheese({ name: '', pricePerKilo: '', color: '', imageUrl: '' });
     };
 
