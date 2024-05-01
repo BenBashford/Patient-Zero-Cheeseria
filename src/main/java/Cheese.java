@@ -1,4 +1,4 @@
-package main.java.Cheeseria;
+package main.java;
 
 import java.util.UUID;
 

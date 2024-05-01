@@ -38,7 +38,7 @@ function App() {
       if (!response.ok) {
         throw new Error('Failed to create cheese: Ensure Name, Price, and Color are Provided');
       }
-      fetchCheeses(); // Refresh the cheese list after creation
+      fetchCheeses();
     } catch (error) {
       console.error('Error creating cheese:', error.message);
 
@@ -57,7 +57,7 @@ function App() {
       if (!response.ok) {
         throw new Error('Failed to update cheese: Ensure Valid Input is Provided');
       }
-      fetchCheeses(); // Refresh the cheese list after update
+      fetchCheeses();
     } catch (error) {
       console.error('Error updating cheese:', error.message);
     }
@@ -71,7 +71,7 @@ function App() {
       if (!response.ok) {
         throw new Error('Failed to delete cheese');
       }
-      fetchCheeses(); // Refresh the cheese list after deletion
+      fetchCheeses();
     } catch (error) {
       console.error('Error deleting cheese:', error);
     }

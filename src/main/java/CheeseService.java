@@ -1,4 +1,4 @@
-package main.java.Cheeseria;
+package main.java;
 
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
@@ -32,13 +32,9 @@ public class CheeseService {
         if (cheeses.size() >= 5) {
             throw new RuntimeException("Maximum number of cheeses reached");
         }
-        // Set a default image URL if none is provided
         if (newCheese.getImageUrl() == null || newCheese.getImageUrl().isEmpty()) {
             newCheese.setImageUrl("https://jackscheese.com/wp-content/uploads/Placeholder-Cheese.jpg.webp"); // Provide
-            // the
-            // default
-            // image
-            // URL here
+
         }
         cheeses.add(newCheese);
         return newCheese;
@@ -51,20 +47,15 @@ public class CheeseService {
         for (int i = 0; i < cheeses.size(); i++) {
             Cheese cheese = cheeses.get(i);
             if (cheese.getId().equals(id)) {
-                // Set a default image URL if none is provided
                 if (updatedCheese.getImageUrl() == null || updatedCheese.getImageUrl().isEmpty()) {
                     updatedCheese.setImageUrl("https://jackscheese.com/wp-content/uploads/Placeholder-Cheese.jpg.webp"); // Provide
-                    // the
-                    // default
-                    // image
-                    // URL
-                    // here
+
                 }
                 cheeses.set(i, updatedCheese);
                 return updatedCheese;
             }
         }
-        return null; // Cheese not found
+        return null;
     }
 
     public boolean deleteCheese(String id) {
