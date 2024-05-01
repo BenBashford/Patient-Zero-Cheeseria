@@ -15,7 +15,7 @@
     <name>Cheeseria</name>
     <description>Cheeseria Project</description>
     <properties>
-        <java.version>11</java.version> <!-- Adjust to your installed JDK version -->
+        <java.version>17</java.version> <!-- Adjust to your installed JDK version -->
     </properties>
     <dependencies>
         <!-- Spring Boot Starter Web for RESTful APIs -->

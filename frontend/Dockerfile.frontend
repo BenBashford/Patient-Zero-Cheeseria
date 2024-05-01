@@ -1,0 +1,21 @@
+# Stage 1: Build React app
+FROM node:14-alpine as build
+
+WORKDIR /Patient-Zero-Cheeseria
+
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+COPY . ./
+
+# It would probably be better to use something like Nginx here, but I was having difficulty making it work in a way I was happy with.
+# This solution is functional for a POC, but not suitable for production use.
+FROM node:14-alpine
+
+WORKDIR /usr/src/app
+
+COPY --from=build /Patient-Zero-Cheeseria ./
+
+EXPOSE 3000
+
+CMD ["npm", "start"]

@@ -1,0 +1,17 @@
+FROM maven:3.9.6 as build
+
+WORKDIR /Patient-Zero-Cheeseria
+
+COPY pom.xml ./
+COPY src ./src/
+RUN mvn clean package -DskipTests
+
+FROM openjdk:17-jdk-slim
+
+WORKDIR /Patient-Zero-Cheeseria
+
+COPY --from=build /Patient-Zero-Cheeseria/target/*.jar ./Patient-Zero-Cheeseria.jar
+
+EXPOSE 8080
+
+CMD ["java", "-jar", "Patient-Zero-Cheeseria.jar"]
