@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import Calculator from './Calculator';
+import AddCheeseForm from './AddCheeseForm';
 
 function App() {
   const [cheeses, setCheeses] = useState([]);
-  const [newCheese, setNewCheese] = useState({ name: '', pricePerKilo: '', color: '', imageUrl: '' });
-  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     fetchCheeses();
@@ -23,7 +23,7 @@ function App() {
     }
   };
 
-  const handleCreateCheese = async () => {
+  const handleCreateCheese = async (newCheese) => {
     try {
       if (cheeses.length >= 5) {
         throw new Error('Maximum number of cheeses reached');
@@ -39,13 +39,9 @@ function App() {
         throw new Error('Failed to create cheese: Ensure Name, Price, and Color are Provided');
       }
       fetchCheeses(); // Refresh the cheese list after creation
-      setNewCheese({ name: '', pricePerKilo: '', color: '', imageUrl: '' }); // Clear the form including imageUrl
     } catch (error) {
       console.error('Error creating cheese:', error.message);
-      setErrorMessage(error.message);
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 2000);
+
     }
   };
 
@@ -64,10 +60,6 @@ function App() {
       fetchCheeses(); // Refresh the cheese list after update
     } catch (error) {
       console.error('Error updating cheese:', error.message);
-      setErrorMessage(error.message);
-      setTimeout(() => {
-        setErrorMessage('');
-      }, 2000);
     }
   };
 
@@ -88,19 +80,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Cheese Selection</h1>
-        {errorMessage ? (
-          <h2 style={{ color: 'red' }}>{errorMessage}</h2>
-        ) : (
-          <>
-            <h2>Add New Cheese:</h2>
-          </>
-        )}
-        <input type="text" placeholder="Name" value={newCheese.name} onChange={(e) => setNewCheese({ ...newCheese, name: e.target.value })} />
-        <input type="text" placeholder="Price per kilo" value={newCheese.pricePerKilo} onChange={(e) => setNewCheese({ ...newCheese, pricePerKilo: e.target.value })} />
-        <input type="text" placeholder="Color" value={newCheese.color} onChange={(e) => setNewCheese({ ...newCheese, color: e.target.value })} />
-        <input type="text" placeholder="Image URL" value={newCheese.imageUrl} onChange={(e) => setNewCheese({ ...newCheese, imageUrl: e.target.value })} />
-        <button onClick={handleCreateCheese} disabled={cheeses.length >= 5}>Add Cheese</button>
+        <div className="top-bar">
+          <Calculator cheeses={cheeses} />
+          <AddCheeseForm onAddCheese={handleCreateCheese} disabled={cheeses.length >= 5} />
+        </div>
         <div className="cheese-container">
           {cheeses.map((cheese) => (
             <div key={cheese.id} className="cheese-card">
